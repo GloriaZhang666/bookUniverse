@@ -1,0 +1,39 @@
+https://www.geeksforgeeks.org/construct-tree-from-ancestor-matrix/
+mat[i][j] = 1 if i is ancestor of j
+mat[i][j] = 0, otherwise
+Input: 0 1 1
+       0 0 0 
+       0 0 0 
+Output: Root of one of the below trees.
+    0                0
+  /   \     OR     /   \
+ 1     2          2     1
+
+
+
+visualization
+like subwaylines
+each book is a station while each label is the line.
+
+
+https://towardsdatascience.com/visualizing-networks-in-python-d70f4cbeb259
+https://towardsdatascience.com/introducing-jaal-interacting-with-network-made-easy-124173bb4fa
+data structure
+ edge_df:from,to(topology)
+ node_df:id(other features)
+Setting panel
+ Search: 
+ Filter: 
+ Color: 
+
+
+I have to do
+ 1 generate the edge_df from node_df.
+  Date based on feature-->from,to
+  De-duplication
+ 2 1's result as jaal's input
+ 
+ 
+
+
+pip install --proxy http://[user:password@]proxyserver:port package
