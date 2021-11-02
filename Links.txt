@@ -49,3 +49,14 @@ The set(list_of_objects) will only remove the duplicates if you know what a dupl
 def __eq__(self, other):
     return self.author_name==other.author_name\
            and self.title==other.title
+           
+           
+https://www.geeksforgeeks.org/python-save-list-to-csv/
+Using CSV Module
+# field names 
+fields = ['Name', 'Branch', 'Year', 'CGPA'] 
+# data rows of csv file 
+rows = [ ['Nikhil', 'COE', '2', '9.0'], 
+  ......
+
+
