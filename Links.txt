@@ -31,6 +31,10 @@ I have to do
  1 generate the edge_df from node_df.
   Date based on feature-->from,to
   De-duplication
+  1.1 df = pd.read_csv("init_data.csv")
+  1.2 generate [from,to] dictiony from 1.1's df
+  1.3 [1.2's dictiony AS df].drop_duplicates(inplace = True)
+  1.3 output 1.3's dictiony to "node_data.csv"
  2 1's result as jaal's input
  
  
@@ -60,3 +64,8 @@ rows = [ ['Nikhil', 'COE', '2', '9.0'],
   ......
 
 
+Python tutorials
+1 Pandas
+2 List
+3 Dictionary
+4 JSON
