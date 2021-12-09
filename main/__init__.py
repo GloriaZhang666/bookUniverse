@@ -55,22 +55,27 @@ for suffix in suffixes:
             nodes['from'].append(i)
             addNode(i + 1, values)
 
+    lengthEachColumn = {}
     # loop through columns of df and skip non-attribute columns ('Date','Status','id')
     for column in df.columns[nonAttributeNo:]:
         values = df[column].values
         i = 0
         # generate from,to from current column
         addNode(i, values)
+        # set pair number of each column
+        lengthEachColumn[column] = len(nodes["from"])
         # add the nodes dictionary to allNodes
         allNodes['from'].extend(nodes['from'])
         allNodes['to'].extend(nodes['to'])
         # reset nodes for next column
         nodes = {'from':[], 'to':[]}
 
+    # output columns and their pair numbers in DESC
+    for k, v in sorted(lengthEachColumn.items(), key=lambda item: item[1], reverse=True):
+        print(k, v)
+
     # declare a dataframe using allNodes
     nodesDf = pd.DataFrame(allNodes)
-    # DEBUG
-    print(suffix)
     # deduplicate nodesDf
     nodesDf.drop_duplicates(inplace=True)
 
