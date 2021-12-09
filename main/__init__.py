@@ -1,14 +1,20 @@
 import pandas as pd
 
-suffixes = ["_01", "_02", "_03", "_04", "_05", "_06", "_07", "_08", "_09", "_10", "_11"]
+# suffixes = ["_01", "_02", "_03", "_04", "_05", "_06", "_07", "_08", "_09", "_10", "_11"]
+suffixes = [""]
 
 for suffix in suffixes:
+
+    outputName = "got_edge_df"
+
     # read csv data to a dataframe
     df = pd.read_csv('data' + suffix + '.csv')
 
     # fill blank with 0
     df.fillna(0, inplace=True)
 
+    # number of non-attribute columns
+    nonAttributeNo = 3
     # declare a global dictionary of from,to set generated from a column
     global nodes
     nodes = {'from':[], 'to':[]}
@@ -49,8 +55,8 @@ for suffix in suffixes:
             nodes['from'].append(i)
             addNode(i + 1, values)
 
-    # loop through columns of df and skip the first 2 columns ('Date','id')
-    for column in df.columns[2:]:
+    # loop through columns of df and skip non-attribute columns ('Date','Status','id')
+    for column in df.columns[nonAttributeNo:]:
         values = df[column].values
         i = 0
         # generate from,to from current column
@@ -78,6 +84,6 @@ for suffix in suffixes:
         edgeDf.at[i, "to"] = df.loc[toIdx].id
 
     # output edgeDf to a csv
-    edgeDf.to_csv('edge' + suffix + '.csv', index=False)
+    edgeDf.to_csv(outputName + suffix + '.csv', index=False)
 
 print("END.")
