@@ -27,12 +27,12 @@ Setting panel
  Color: 
 
 
-I have to do
+TODO
  1 generate the edge_df from node_df.
   Date based on feature-->from,to
   De-duplication
   1.1 df = pd.read_csv("init_data.csv")
-  1.2 generate [from,to] dictiony from 1.1's df
+  1.2 generate [from,to] dictionary from 1.1's df
   1.3 [1.2's dictiony AS df].drop_duplicates(inplace = True)
   1.3 output 1.3's dictiony to "node_data.csv"
  2 1's result as jaal's input
@@ -64,8 +64,6 @@ rows = [ ['Nikhil', 'COE', '2', '9.0'],
   ......
 
 
-Python tutorials
-1 Pandas
-2 List
-3 Dictionary
-4 JSON
+https://zhuanlan.zhihu.com/p/123271223
+书海星空WebApp中每本书作为一个节点包含评价人数、评分、被链接数（类似Google的RankPage算法根据网页被链接的数目来排网页的重要性，一般越好的书籍被链接的数目也越多）、链入的图书节点、链出的图书节点等信息。
+书海星空可以根据看过的或找到的好书顺藤摸瓜来找相关的更多经典好书，书海中尽情泛舟，找到自己喜欢的宝藏。

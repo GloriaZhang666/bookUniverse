@@ -1,0 +1,44 @@
+
+for Failed to establish a new connection: [Errno 11001] getaddrinfo failed')': /simple/XXX/
+USING --no-build-isolation TO install package OFFLINE
+pip install C:\Users\001210-zhangguanghui\Downloads\ --no-build-isolation
+
+==============dash BEGIN=================
+
+pip install C:\Users\001210-zhangguanghui\Downloads\setuptools-59.6.0.tar.gz --no-build-isolation
+
+pip install C:\Users\001210-zhangguanghui\Downloads\Brotli-1.0.9.zip --no-build-isolation
+-- installed but still FAILED
+error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+-- SUCCESS change package to WHL version
+pip install C:\Users\001210-zhangguanghui\Downloads\Brotli-1.0.9-cp37-cp37m-win_amd64.whl
+
+
+pip install C:\Users\001210-zhangguanghui\Downloads\Flask-Compress-1.10.1.tar.gz --no-build-isolation
+
+-- FAILED
+pip install C:\Users\001210-zhangguanghui\Downloads\tenacity-8.0.1.tar.gz --no-build-isolation
+-- using WHL version instead, in accord with Brotli
+pip install C:\Users\001210-zhangguanghui\Downloads\tenacity-8.0.1-py3-none-any.whl --no-build-isolation
+
+
+-- using WHL version 
+pip install C:\Users\001210-zhangguanghui\Downloads\plotly-5.4.0-py2.py3-none-any.whl --no-build-isolation
+
+pip install C:\Users\001210-zhangguanghui\Downloads\dash_html_components-2.0.0.tar.gz --no-build-isolation
+pip install C:\Users\001210-zhangguanghui\Downloads\dash_core_components-2.0.0.tar.gz --no-build-isolation
+pip install C:\Users\001210-zhangguanghui\Downloads\dash_table-5.0.0.tar.gz --no-build-isolation
+
+
+pip install C:\Users\001210-zhangguanghui\Downloads\dash-2.0.0.tar.gz --no-build-isolation
+
+==============dash END=================
+
+pip install C:\Users\001210-zhangguanghui\Downloads\visdcc-0.0.40.tar.gz --no-build-isolation
+pip install C:\Users\001210-zhangguanghui\Downloads\dash-bootstrap-components-0.13.1.tar.gz --no-build-isolation
+
+
+
+
+
+pip install C:\Users\001210-zhangguanghui\Downloads\jaal-0.1.2.tar.gz --no-build-isolation
