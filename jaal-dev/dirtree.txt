@@ -1,0 +1,110 @@
+C:.
+„   .gitignore
+„   .project
+„   .pydevproject
+„   jaal_call.py
+„   LICENSE
+„   README.md
+„   requirements.txt
+„   setup.py
+„ 
+„¥„Ÿ.github
+„   „¤„Ÿworkflows
+„           build_and_publish.yml
+„ 
+„¥„Ÿ.settings
+„       .jsdtscope
+„       org.eclipse.wst.jsdt.ui.superType.container
+„       org.eclipse.wst.jsdt.ui.superType.name
+„ 
+„¥„Ÿdocs
+„   „   .buildinfo
+„   „   .nojekyll
+„   „   changelog.rst
+„   „   code.html
+„   „   code.rst
+„   „   conf.py
+„   „   genindex.html
+„   „   index.html
+„   „   index.rst
+„   „   make.bat
+„   „   Makefile
+„   „   objects.inv
+„   „   py-modindex.html
+„   „   search.html
+„   „   searchindex.js
+„   „ 
+„   „¥„Ÿsource
+„   „       dashboard.png
+„   „       jaal_color.gif
+„   „       jaal_filter.gif
+„   „       jaal_search.gif
+„   „       logo.png
+„   „ 
+„   „¥„Ÿ_images
+„   „       dashboard.png
+„   „       jaal_color.gif
+„   „       jaal_filter.gif
+„   „       jaal_search.gif
+„   „ 
+„   „¥„Ÿ_sources
+„   „       code.rst.txt
+„   „       index.rst.txt
+„   „ 
+„   „¤„Ÿ_static
+„           alabaster.css
+„           basic.css
+„           custom.css
+„           doctools.js
+„           documentation_options.js
+„           file.png
+„           jquery-3.5.1.js
+„           jquery.js
+„           language_data.js
+„           logo.png
+„           minus.png
+„           plus.png
+„           pygments.css
+„           searchtools.js
+„           underscore-1.3.1.js
+„           underscore.js
+„ 
+„¤„Ÿjaal
+    „   jaal.py
+    „   layout.py
+    „   __init__.py
+    „ 
+    „¥„Ÿassest
+    „       dashboard.png
+    „       jaal_color.gif
+    „       jaal_filter.gif
+    „       jaal_search.gif
+    „       jaal_size.gif
+    „       logo.png
+    „ 
+    „¥„Ÿdatasets
+    „   „   gen_edge.py
+    „   „   load_got.py
+    „   „   parse_dataframe.py
+    „   „   __init__.py
+    „   „ 
+    „   „¥„Ÿgot
+    „   „   „   data.csv
+    „   „   „   got_edge_df.csv
+    „   „   „   got_node_df.csv
+    „   „   „ 
+    „   „   „¤„Ÿori
+    „   „           got_edge_df.csv
+    „   „           got_node_df.csv
+    „   „ 
+    „   „¤„Ÿ__pycache__
+    „           gen_edge.cpython-37.pyc
+    „           load_got.cpython-37.pyc
+    „           parse_dataframe.cpython-37.pyc
+    „           __init__.cpython-37.pyc
+    „ 
+    „¤„Ÿ__pycache__
+            gen_edge.cpython-37.pyc
+            jaal.cpython-37.pyc
+            layout.cpython-37.pyc
+            __init__.cpython-37.pyc
