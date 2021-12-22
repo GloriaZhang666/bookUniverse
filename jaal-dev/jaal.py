@@ -40,19 +40,25 @@ class Jaal:
         print("Done")
 
     # MINE
-    def _callback_redraw_graph(self, attr_complex_value):
+    def reset(self, data, scaling_vars=None):
+        print("Resetting the data...")
+        self.data, self.scaling_vars = data, scaling_vars
+        self.filtered_data = self.data.copy()
+        self.node_value_color_mapping = {}
+        self.edge_value_color_mapping = {}
+        print("Done")
+
+    # MINE
+    def _callback_redraw_graph(self, graph_data, attr_complex_value):
         """Redraw graph with the nodes which match the selected attributes
         """
         gen_edge_csv(attr_complex_value)
         # load the data
         edge_df, node_df = load_got()
-        # define vis options
-        vis_opts = {'height': '1000px',  # change height
-                    'interaction':{'hover': True},  # turn on-off the hover
-                    'physics':{'stabilization':{'iterations': 100}}}  # define the convergence iteration of network
-
-        # regenerate graph
-        graph_data, scaling = parse_dataframe(edge_df, node_df)
+        # regenerate and set graph_data
+        graph_data, scaling_vars = parse_dataframe(edge_df, node_df)
+        # reset self data
+        self.reset(graph_data, scaling_vars)
         return graph_data
 
     def _callback_search_graph(self, graph_data, search_text):
@@ -285,7 +291,10 @@ class Jaal:
 
         # create the main callbacks
         @app.callback(
-            [Output('graph', 'data'), Output('color-legend-popup', 'children')],
+            [Output('graph', 'data'),
+             Output('color-legend-popup', 'children')],
+             Output('active_count', 'children'),
+             Output('first_node', 'children'),
             [Input('attr_complex', 'value'),
             Input('search_graph', 'value'),
             Input('filter_nodes', 'value'),
@@ -300,16 +309,21 @@ class Jaal:
                     color_nodes_value, color_edges_value, size_nodes_value, size_edges_value, graph_data):
             # fetch the id of option which triggered
             ctx = dash.callback_context
+            active_count_label = None
+            first_node_label = None
             # if its the first call
             if not ctx.triggered:
                 print("No trigger")
-                return [self.data, self.get_color_popover_legend_children()]
+                # fetch active node count and first node name
+                active_count_label, first_node_label = self.gen_active_label(graph_data, [])
+                return [self.data, self.get_color_popover_legend_children(), active_count_label, first_node_label]
             else:
                 # find the id of the option which was triggered
                 input_id = ctx.triggered[0]['prop_id'].split('.')[0]
                 # perform operation in case of search graph option
                 if input_id == "attr_complex":
-                    graph_data = self._callback_redraw_graph(attr_complex_value)
+                    graph_data = self._callback_redraw_graph(graph_data, attr_complex_value)
+                    active_count_label, first_node_label = self.gen_active_label(graph_data, attr_complex_value)
                 elif input_id == "search_graph":
                     graph_data = self._callback_search_graph(graph_data, search_text)
                 # In case filter nodes was triggered
@@ -333,9 +347,15 @@ class Jaal:
             # create the color legend childrens
             color_popover_legend_children = self.get_color_popover_legend_children(self.node_value_color_mapping, self.edge_value_color_mapping)
             # finally return the modified data
-            return [graph_data, color_popover_legend_children]
+            return [graph_data, color_popover_legend_children, active_count_label, first_node_label]
         # return server
         return app
+
+    # MINE fetch active node count and first node name
+    def gen_active_label(self, graph_data, attr_complex_value):
+        active_count_label = dbc.Label(len(graph_data['edges'])) if len(attr_complex_value) > 0 and 'All' not in attr_complex_value else dbc.Label("")
+        first_node_label = dbc.Label(graph_data['edges'][0].__getitem__('id').split("__")[0])
+        return active_count_label, first_node_label
 
     # define vis options
     default_vis_opts = {'height': '1000px', # change height

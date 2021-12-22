@@ -193,7 +193,7 @@ def get_select_form_layout(id, options, label, description):
             ,])
 
 # MINE
-def get_all_features(df_, blacklist_features=['shape', 'label', 'size', 'Date', 'id']):
+def get_all_features(df_, blacklist_features=['shape', 'label', 'size', 'Date', 'id', 'Status']):
     # identify the all cols + All
     all_features = ['All'] + df_.columns.tolist()
     # remove irrelevant cols
@@ -203,8 +203,20 @@ def get_all_features(df_, blacklist_features=['shape', 'label', 'size', 'Date', 
     except:
         pass
     # return
-    print(all_features)
     return all_features
+
+# MINE
+def get_color_features(df_, blacklist_features=['shape', 'label', 'size', 'Date', 'id']):
+    # identify the all cols + All
+    features = df_.columns.tolist()
+    # remove irrelevant cols
+    try:
+        for col in blacklist_features:
+            features.remove(col)
+    except:
+        pass
+    # return
+    return features
 
 def get_categorical_features(df_, unique_limit=20, blacklist_features=['shape', 'label', 'id']):
     """Identify categorical features for edge or node data and return their names
@@ -246,7 +258,7 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
     """
     all_features = get_all_features(pd.DataFrame(graph_data['nodes']))
     # Step 1-2: find categorical features of nodes and edges
-    cat_node_features = get_categorical_features(pd.DataFrame(graph_data['nodes']), 20, ['shape', 'label', 'id'])
+    cat_node_features = get_color_features(pd.DataFrame(graph_data['nodes']))
     cat_edge_features = get_categorical_features(pd.DataFrame(graph_data['edges']).drop(columns=['color']), 20, ['color', 'from', 'to', 'id'])
     # Step 3-4: Get numerical features of nodes and edges
     num_node_features = get_numerical_features(pd.DataFrame(graph_data['nodes']))
@@ -266,6 +278,14 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
                         # ---- attribute combination section ----
                         html.H6("Narrow down"),
                         html.Hr(className="my-2"),
+                        html.Div(
+                             [
+                                html.P(id="active_count"),
+                                html.P(id="first_node"),
+                                # dbc.Label(len(graph_data['edges'])),
+                                # dbc.Label(graph_data['edges'][0].__getitem__('id'))
+                             ]
+                        ),
                         get_attribute_combination(
                             id='attr_complex',
                             options=[{'label': opt, 'value': opt} for opt in all_features],
@@ -308,7 +328,7 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
                                 id='color_nodes',
                                 options=[{'label': opt, 'value': opt} for opt in cat_node_features],
                                 label='Color nodes by',
-                                description='Select the categorical node property to color nodes by'
+                                description='Select the numerical node property to color nodes by'
                             ),
                             get_select_form_layout(
                                 id='color_edges',
