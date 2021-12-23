@@ -41,6 +41,8 @@ class Jaal:
 
     # MINE
     def reset(self, data, scaling_vars=None):
+        """Reset app with the nodes which match the selected attributes
+        """
         print("Resetting the data...")
         self.data, self.scaling_vars = data, scaling_vars
         self.filtered_data = self.data.copy()
@@ -129,23 +131,22 @@ class Jaal:
         graph_data = self.filtered_data
         return graph_data, value_color_mapping
 
-    def _callback_size_nodes(self, graph_data, size_nodes_value):
-
-        # color option is None, revert back all changes
-        if size_nodes_value == 'None':
-            # revert to default color
-            for node in self.data['nodes']:
-                node['size'] = DEFAULT_NODE_SIZE
-        else:
-            print("Modifying node size using ", size_nodes_value)
-            # fetch the scaling value
-            minn = self.scaling_vars['node'][size_nodes_value]['min']
-            maxx = self.scaling_vars['node'][size_nodes_value]['max']
-            # define the scaling function
-            scale_val = lambda x: 20*(x-minn)/(maxx-minn)
-            # set size after scaling
-            for node in self.data['nodes']:
-                node['size'] = node['size'] + scale_val(node[size_nodes_value])
+    def _callback_size_nodes(self, graph_data, size_nodes_list):
+        # revert to default color
+        for node in self.data['nodes']:
+            node['size'] = DEFAULT_NODE_SIZE
+        if len(size_nodes_list) > 0 and 'None' not in size_nodes_list:
+            # color option is selected without None
+            print("Modifying node size using ", size_nodes_list)
+            for size_nodes_value in size_nodes_list:
+                # fetch the scaling value
+                minn = self.scaling_vars['node'][size_nodes_value]['min']
+                maxx = self.scaling_vars['node'][size_nodes_value]['max']
+                # define the scaling function
+                scale_val = lambda x: 20*(x-minn)/(maxx-minn)
+                # set size after scaling
+                for node in self.data['nodes']:
+                    node['size'] = node['size'] + scale_val(node[size_nodes_value])
         # filter the data currently shown
         filtered_nodes = [x['id'] for x in self.filtered_data['nodes']]
         self.filtered_data['nodes'] = [x for x in self.data['nodes'] if x['id'] in filtered_nodes]
@@ -289,6 +290,25 @@ class Jaal:
                 return not is_open
             return is_open
 
+        # MINE TODO
+        @app.callback(
+            Output("attr_complex", "value"),
+            [Input("attr_complex", "value")],
+            [State("attr_complex", "options")],
+        )
+        def select_all_none(selected, options):
+            """Narrow down : clear check list
+            """
+            all_or_part = []
+            if selected:
+                if len(selected) > 0 and 'All' in selected:
+                    all_or_part = ['All']
+                else:
+                    all_or_part = selected
+            else:
+                all_or_part = ['All']
+            return all_or_part
+
         # create the main callbacks
         @app.callback(
             [Output('graph', 'data'),
@@ -353,8 +373,8 @@ class Jaal:
 
     # MINE fetch active node count and first node name
     def gen_active_label(self, graph_data, attr_complex_value):
-        active_count_label = dbc.Label(len(graph_data['edges'])) if len(attr_complex_value) > 0 and 'All' not in attr_complex_value else dbc.Label("")
-        first_node_label = dbc.Label(graph_data['edges'][0].__getitem__('id').split("__")[0])
+        active_count_label = dbc.Label("Active node count: " + str(len(graph_data['edges']))) if len(attr_complex_value) > 0 and 'All' not in attr_complex_value else dbc.Label("")
+        first_node_label = dbc.Label("First node name: " + graph_data['edges'][0].__getitem__('id').split("__")[0])
         return active_count_label, first_node_label
 
     # define vis options

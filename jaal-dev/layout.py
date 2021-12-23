@@ -169,7 +169,7 @@ filter_edge_form = dbc.FormGroup([
     ),
 ])
 
-def get_select_form_layout(id, options, label, description):
+def get_select_form_layout(id, options, label, description, style = {}):
     """Creates a select (dropdown) form with provides details
 
     Parameters
@@ -188,9 +188,11 @@ def get_select_form_layout(id, options, label, description):
                     dbc.InputGroupAddon(label, addon_type="append"),
                     dbc.Select(id=id,
                         options=options
-                    ),]),
-                dbc.FormText(description, color="secondary",)
-            ,])
+                    ), ]),
+                dbc.FormText(description, color="secondary",),
+                ],
+                style=style
+            )
 
 # MINE
 def get_all_features(df_, blacklist_features=['shape', 'label', 'size', 'Date', 'id', 'Status']):
@@ -258,7 +260,7 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
     """
     all_features = get_all_features(pd.DataFrame(graph_data['nodes']))
     # Step 1-2: find categorical features of nodes and edges
-    cat_node_features = get_color_features(pd.DataFrame(graph_data['nodes']))
+    cat_node_features = get_numerical_features(pd.DataFrame(graph_data['nodes']))
     cat_edge_features = get_categorical_features(pd.DataFrame(graph_data['edges']).drop(columns=['color']), 20, ['color', 'from', 'to', 'id'])
     # Step 3-4: Get numerical features of nodes and edges
     num_node_features = get_numerical_features(pd.DataFrame(graph_data['nodes']))
@@ -280,11 +282,10 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
                         html.Hr(className="my-2"),
                         html.Div(
                              [
-                                html.P(id="active_count"),
-                                html.P(id="first_node"),
-                                # dbc.Label(len(graph_data['edges'])),
-                                # dbc.Label(graph_data['edges'][0].__getitem__('id'))
-                             ]
+                                html.P(id="active_count", style={'height':'auto', 'margin':'auto'}),
+                                html.P(id="first_node", style={'height':'auto', 'margin':'auto'}),
+                             ],
+                            style={'color':'#0dab9d','fontSize':12}
                         ),
                         get_attribute_combination(
                             id='attr_complex',
@@ -330,11 +331,13 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
                                 label='Color nodes by',
                                 description='Select the numerical node property to color nodes by'
                             ),
+                            # color edges unnecessary
                             get_select_form_layout(
                                 id='color_edges',
                                 options=[{'label': opt, 'value': opt} for opt in cat_edge_features],
                                 label='Color edges by',
-                                description='Select the categorical edge property to color edges by'
+                                description='Select the categorical edge property to color edges by',
+                                style={'display':'none'}
                             ),
                         ], id="color-show-toggle", is_open=True),
 
@@ -351,18 +354,20 @@ def get_app_layout(graph_data, color_legends=[], directed=False, vis_opts=None):
                         ], {**fetch_flex_row_style(), 'margin-left': 0, 'margin-right':0, 'justify-content': 'space-between'}),
                         dbc.Collapse([
                             html.Hr(className="my-2"),
-                            get_select_form_layout(
+                            get_attribute_combination(
                                 id='size_nodes',
                                 options=[{'label': opt, 'value': opt} for opt in num_node_features],
                                 label='Size nodes by',
                                 description='Select the numerical node property to size nodes by'
                             ),
+                            # size edges unnecessary
                             get_select_form_layout(
                                 id='size_edges',
                                 options=[{'label': opt, 'value': opt} for opt in num_edge_features],
                                 label='Size edges by',
-                                description='Select the numerical edge property to size edges by'
-                            ),
+                                description='Select the numerical edge property to size edges by',
+                                style={'display':'none'}
+                             ),
                         ], id="size-show-toggle", is_open=True),
 
                     ], className="card", style={'padding': '5px', 'background': '#e5e5e5'}),
