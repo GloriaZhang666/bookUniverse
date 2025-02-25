@@ -1,3 +1,9 @@
+**项目描述：**
+
+`bookUniverse` 是一个基于 Python 的交互式图书可视化工具，旨在帮助用户以网络图的形式探索和分析图书之间的关系。该项目基于 [Jaal](https://github.com/imohitmayank/jaal/) 库进行开发，Jaal 是一个使用 Dash 和 Visdcc 构建的交互式网络可视化工具。在此基础上，`bookUniverse` 进行了多项定制化修改，以满足特定的图书数据可视化需求。
+
+**主要个性化修改：**
+
 下面是对 commit **8ec2b1c**（Jaal原版，截止2021.10）与 commit **5768e35**（当前）之间差异的详细分析，以及新增功能逻辑的简要说明：
 
 1. **CSV 上传功能**  
@@ -22,6 +28,12 @@
 这些改进使得 `bookUniverse` 更贴合用户个性化需求，同时也为后续功能扩展提供了更好的数据支撑。
 
 ---
+**Project description:**
+
+bookUniverse is a Python-based interactive book visualization tool designed to help users explore and analyze relationships between books in the form of network diagrams. The project is developed based on the [Jaal](https://github.com/imohitmayank/jaal/) library, an interactive network visualization tool built using Dash and Visdcc. On this basis, bookUniverse has made a number of customized modifications to meet specific book data visualization needs.
+
+**Main personalization modifications:**
+
 Based on the comparison between commit **8ec2b1c** (base: Jaal until Oct, 2021) and commit **5768e35** (current), here’s an English summary of the changes and the new functionality logic:
 
 1. **CSV Upload Functionality**  
