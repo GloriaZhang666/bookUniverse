@@ -4,7 +4,7 @@
 
 **主要个性化修改：**
 
-下面是对 commit **8ec2b1c**（Jaal原版，截止2021.10）与 commit **5768e35**（当前）之间差异的详细分析，以及新增功能逻辑的简要说明：
+下面是对 commit **8ec2b1c**（Jaal原版，截止2021.10）与 commit **5768e35**（2021.12）之间差异的详细分析，以及新增功能逻辑的简要说明：
 
 1. **CSV 上传功能**  
    - **新增接口与解析逻辑：** 在当前版本中，增加了一个 CSV 文件上传接口，允许用户通过上传 CSV 文件批量导入图书数据。上传后的 CSV 文件会经过解析，提取图书的各项信息，替代了原本固定数据源的方式。
@@ -34,7 +34,7 @@ bookUniverse is a Python-based interactive book visualization tool designed to h
 
 **Main personalization modifications:**
 
-Based on the comparison between commit **8ec2b1c** (base: Jaal until Oct, 2021) and commit **5768e35** (current), here’s an English summary of the changes and the new functionality logic:
+Based on the comparison between commit **8ec2b1c** (base: Jaal until Oct, 2021) and commit **5768e35** (Dec, 2021), here’s an English summary of the changes and the new functionality logic:
 
 1. **CSV Upload Functionality**  
    - **New Interface and Parsing Logic:** A CSV file upload feature has been introduced, allowing users to import book data in bulk. Once uploaded, the CSV file is parsed to extract the necessary book details, replacing the previously fixed data source.
